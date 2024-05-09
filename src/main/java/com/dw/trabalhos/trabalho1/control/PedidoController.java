@@ -44,8 +44,8 @@ public class PedidoController {
     public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) {
         try {
             Pedido _p = rep.save(new Pedido(
-                    pedido.getId_funcionario(),
-                    pedido.getId_cliente(),
+                    pedido.getFuncionario(),
+                    pedido.getCliente(),
                     pedido.getData_pedido(),
                     pedido.getData_remessa()
             ));
@@ -57,32 +57,10 @@ public class PedidoController {
     }
 
     /*
-     * PUT /api/pedidos/:id : atualizar pedidos dado um id
-     */
-    @PutMapping("/artigos/{id_pedido}")
-    public ResponseEntity<Pedido> updatePedido(@PathVariable("id_pedido") long id_pedido, @RequestBody Pedido pedido) {
-        Optional<Pedido> data = rep.findById(id_pedido);
-
-        if (data.isPresent())
-        {
-            Pedido pr = data.get();
-            pr.setId_funcionario(pedido.getId_funcionario());
-            pr.setId_cliente(pedido.getId_cliente());
-            pr.setData_pedido(pedido.getData_pedido());
-            pr.setData_remessa(pedido.getData_remessa());
-
-            return new ResponseEntity<>(rep.save(pr), HttpStatus.OK);
-        }
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-    }
-
-    /*
      * GET /api/pedidos/:id_pedido : listar pedidos dado um id
      */
     @GetMapping("/pedidos/{id_pedido}")
-    public ResponseEntity<Pedido> getPedidooById(@PathVariable("id_pedido") long id_pedido) {
+    public ResponseEntity<Pedido> getPedidoById(@PathVariable("id_pedido") long id_pedido) {
         Optional<Pedido> data = rep.findById(id_pedido);
 
         if (data.isPresent())
@@ -96,7 +74,7 @@ public class PedidoController {
      */
     @GetMapping("/pedidos/funcionario?{id_funcionario}")
     public ResponseEntity<List<Pedido>> getPedidooByIdFuncionario(@PathVariable("id_funcionario") long id_funcionario) {
-        Optional<List<Pedido>> data = Optional.ofNullable(rep.findById_funcionario(id_funcionario));
+        Optional<List<Pedido>> data = Optional.ofNullable(rep.findByFuncionario(id_funcionario));
 
         if (data.isPresent())
             return new ResponseEntity<>(data.get(), HttpStatus.OK);
@@ -109,7 +87,7 @@ public class PedidoController {
      */
     @GetMapping("/pedidos/cliente?{id_cliente}")
     public ResponseEntity<List<Pedido>> getPedidoByIdCliente(@PathVariable("id_cliente") long id_cliente) {
-        Optional<List<Pedido>> data = Optional.ofNullable(rep.findById_cliente(id_cliente));
+        Optional<List<Pedido>> data = Optional.ofNullable(rep.findByCliente(id_cliente));
 
         if (data.isPresent())
             return new ResponseEntity<>(data.get(), HttpStatus.OK);
@@ -117,7 +95,27 @@ public class PedidoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //TODO PUT
+    /*
+     * PUT /api/pedidos/:id : atualizar pedidos dado um id
+     */
+    @PutMapping("/pedidos/{id_pedido}")
+    public ResponseEntity<Pedido> updatePedido(@PathVariable("id_pedido") long id_pedido, @RequestBody Pedido pedido) {
+        Optional<Pedido> data = rep.findById(id_pedido);
+
+        if (data.isPresent())
+        {
+            Pedido pr = data.get();
+            pr.setFuncionario(pedido.getFuncionario());
+            pr.setCliente(pedido.getCliente());
+            pr.setData_pedido(pedido.getData_pedido());
+            pr.setData_remessa(pedido.getData_remessa());
+
+            return new ResponseEntity<>(rep.save(pr), HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
 
     /*
      * DEL /api/pedidos/:id : remover pedido dado um id

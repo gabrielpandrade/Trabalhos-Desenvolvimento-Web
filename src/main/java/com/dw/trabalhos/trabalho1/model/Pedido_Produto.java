@@ -7,13 +7,13 @@ import jakarta.persistence.*;
 public class Pedido_Produto {
 
     @Id
-    @Column
     @ManyToOne
+    @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
     @Id
-    @Column
     @ManyToOne
+    @JoinColumn(name = "id_produto")
     private Produto produto;
 
     @Column

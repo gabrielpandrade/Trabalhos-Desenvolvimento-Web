@@ -3,7 +3,6 @@ package com.dw.trabalhos.trabalho1.model;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.Set;
 
 
 @Entity
@@ -12,13 +11,14 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id_pedido;
+    @Column(name = "id_pedido")
+    private long id;
 
     @Column
-    private int id_funcionario;
+    private long funcionario;
 
     @Column
-    private int id_cliente;
+    private long cliente;
 
     @Column
     @Temporal(TemporalType.DATE)
@@ -29,38 +29,37 @@ public class Pedido {
     private Date data_remessa;
 
     public Pedido() {
-
     }
 
-    public Pedido(int id_funcionario, int id_cliente, Date data_pedido, Date data_remessa) {
-        this.id_funcionario = id_funcionario;
-        this.id_cliente = id_cliente;
+    public Pedido(long id_funcionario, long id_cliente, Date data_pedido, Date data_remessa) {
+        this.funcionario = id_funcionario;
+        this.cliente = id_cliente;
         this.data_pedido = data_pedido;
         this.data_remessa = data_remessa;
     }
 
-    public long getId_pedido() {
-        return id_pedido;
+    public long getId() {
+        return id;
     }
 
-    public void setId_pedido(long id_pedido) {
-        this.id_pedido = id_pedido;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public int getId_funcionario() {
-        return id_funcionario;
+    public long getFuncionario() {
+        return funcionario;
     }
 
-    public void setId_funcionario(int id_funcionario) {
-        this.id_funcionario = id_funcionario;
+    public void setFuncionario(long id_funcionario) {
+        this.funcionario = id_funcionario;
     }
 
-    public int getId_cliente() {
-        return id_cliente;
+    public long getCliente() {
+        return cliente;
     }
 
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCliente(long id_cliente) {
+        this.cliente = id_cliente;
     }
 
     public Date getData_pedido() {

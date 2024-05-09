@@ -77,7 +77,7 @@ public class ProdutoController {
     /*
      * PUT /api/produtos/:id : atualizar produto dado um id
      */
-    @PutMapping("/artigos/{id_produto}")
+    @PutMapping("/produtos/{id_produto}")
     public ResponseEntity<Produto> updateProduto(@PathVariable("id_produto") long id_produto, @RequestBody Produto produto) {
         Optional<Produto> data = rep.findById(id_produto);
 
